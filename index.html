@@ -3712,7 +3712,12 @@ document.addEventListener('DOMContentLoaded',function(){
   var nav=document.getElementById('mainNav');
   if(nav) nav.innerHTML=[
     '<div class="nav-in">',
-      '<div class="logo" onclick="go(\'home\')"><div class="logo-b">R</div><div>ResQ<span>247</span></div></div>',
+      '<div class="logo" onclick="go(\'home\')">' +
+          '<div class="logo-ring">' +
+              '<img src="logo.png" alt="ResQ247" class="logo-img">' +
+          '</div>' +
+          '<div class="logo-text">ResQ<span>247</span></div>' +
+      '</div>',
       '<div class="nav-links" id="navLinks">',
 
         // Solutions mega
