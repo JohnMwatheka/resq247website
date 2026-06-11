@@ -38,35 +38,25 @@
     /* Mono font */
     --mono:'JetBrains Mono','Fira Code',monospace;
 }
-
-/* ── GLOBAL BACKGROUND ── */
-body {
-  font-family: var(--font);
-  color: #fff;
-  overflow-x: hidden;
-  /* New background applied here */
-  background: 
-    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(0,35,102,0.55) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 60% at 90% 100%, rgba(200,16,46,0.10) 0%, transparent 50%),
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.012) 39px, rgba(255,255,255,0.012) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.008) 39px, rgba(255,255,255,0.008) 40px),
-    #060d1f;
-  background-attachment: fixed;
-}
-
-/* Keep other global styles */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--royal);color:#fff;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;outline:none;font-family:var(--font)}
 img{max-width:100%}
+
+/* ── PAGES ── */
+.pg{display:none;min-height:100vh;animation:pgFade .35s ease}
+.pg.on{display:block}
+@keyframes pgFade{from{opacity:0}to{opacity:1}}
+
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;
   background:rgba(15,34,96,.97);backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(184,151,58,.2);transition:all 200ms}
 .nav-in{max-width:1400px;margin:0 auto;padding:0 32px;height:72px;
   display:flex;align-items:center;justify-content:space-between}
-/* Updated Logo */
+/* Logo */
 .logo {
   font-family: var(--display);
   font-size: 26px;
@@ -83,28 +73,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;
   opacity: 0.9;
 }
 
-/* Round Ring Container */
-.logo-ring {
-  width: 42px;
-  height: 42px;
-  padding: 3px;                    /* Ring thickness */
-  background: linear-gradient(135deg, var(--gold), var(--gold-l), #fff);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(184, 151, 58, 0.3);
+/* Logo Image - Larger, No Ring */
+.logo-img {
+  width: 100px;           /* ← Increased size */
+  height: 100px;
+  object-fit: contain;
+  transition: transform 250ms ease;
+  margin-top: 24px;
 }
 
-/* Actual Logo Image */
-.logo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;           /* Keeps aspect ratio, fits perfectly */
-  border-radius: 50%;            /* Makes image circular */
-  background: #060d1f;
-  padding: 2px;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+.logo:hover .logo-img {
+  transform: scale(1.05);
 }
 
 /* Logo Text */
@@ -113,6 +92,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;
   align-items: center;
 }
 
+.logo span,
 .logo-text span {
   color: var(--gold-l);
 }
@@ -135,40 +115,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;
   font-size:16px;color:rgba(255,255,255,.9);font-weight:500;cursor:pointer}
 .mnl:hover{color:var(--gold-l)}
 
-/* ── HERO / PRODUCT HERO (adjusted for new bg) ── */
-.hero,
-.prod-hero,
-.dp,
-.fcta {
-  position: relative;
-  overflow: hidden;
-  /* Subtle overlay to maintain brand feel without clashing with the new grid bg */
-  background: linear-gradient(145deg, rgba(15,34,96,0.92) 0%, rgba(28,58,138,0.85) 60%, rgba(41,82,196,0.8) 100%);
-}
-
-/* Optional: Keep a stronger brand gradient on hero if you want more vibrancy */
-.hero::before,
-.prod-hero::before,
-.fcta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 80% 20%, rgba(184,151,58,.10) 0%, transparent 50%),
-              radial-gradient(ellipse at 20% 80%, rgba(192,39,45,.06) 0%, transparent 50%);
-  z-index: 0;
-}
-
-.hero-grid,
-.prod-hero::after {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  z-index: 1;
-  pointer-events: none;
-}
+/* ── HERO ── */
+.hero{min-height:100vh;
+  background:linear-gradient(145deg,#0F2260 0%,#1C3A8A 60%,#2952C4 100%);
+  position:relative;overflow:hidden;padding-top:72px;display:flex;align-items:center}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 20%,rgba(184,151,58,.10) 0%,transparent 50%),
+    radial-gradient(ellipse at 20% 80%,rgba(192,39,45,.06) 0%,transparent 50%)}
+.hero-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:60px 60px}
 .hero-in{max-width:1400px;margin:0 auto;padding:80px 32px;
   display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
   position:relative;z-index:1;width:100%}
@@ -202,6 +159,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;
   background:rgba(184,151,58,.1);border:1px solid rgba(184,151,58,.25);
   border-radius:var(--r-full);padding:7px 14px;
   font-size:12.5px;font-weight:500;color:rgba(255,255,255,.9)}
+
+
 
 /* DASHBOARD */
 .dash-frame{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
@@ -1450,7 +1409,7 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
       <div>
         <div class="logo"><div class="logo-b">R</div><div>ResQ<span>247</span></div></div>
         <p class="ft-tag">Africa's Integrated Digital Health Infrastructure Platform. Digitizing hospitals, emergency services, mental health and public health systems at scale.</p>
-        <div class="ftci">📧 info@resq247.com</div>
+        <div class="ftci">📧 info@resq247.life</div>
         <div class="ftci">📞 +254 700 247 247</div>
         <div class="ftci">💬 WhatsApp Business</div>
         <div class="ftci">📍 Nairobi, Kenya</div>
@@ -1646,124 +1605,180 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
   <div class="sec-in">
     <div class="ptog">
       <span class="tl">Monthly Billing</span>
-      <label class="ts"><input type="checkbox" id="pt2" onchange="togPrice('pt2','pp')"><div class="tsldr"></div></label>
+      <label class="ts">
+        <input type="checkbox" id="pt2" onchange="togPrice(this)">
+        <div class="tsldr"></div>
+      </label>
       <span class="tl">Annual Billing</span>
       <span class="dbadge">Save 20%</span>
     </div>
-    <div class="pg-grid">
-      <div class="pc">
-        <div class="pname">Starter</div><div class="ptgt">Small clinics &amp; practices</div>
-        <div class="ppr"><div class="ppv pp-p1">KES 15K</div><div class="ppp">/month</div></div>
-        <ul class="pfl2"><li>Patient Management</li><li>Appointments &amp; Scheduling</li><li>Basic Billing &amp; Invoicing</li><li>EMR (500 patients/mo)</li><li>Up to 3 Users</li><li>Email Support</li></ul>
+
+    <div class="pg-grid" style="align-items:stretch;">
+      <!-- Starter -->
+      <div class="pc" style="display:flex;flex-direction:column;height:100%;">
+        <div class="pname">Starter</div>
+        <div class="ptgt">Small clinics &amp; practices</div>
+        <div class="ppr">
+          <div class="ppv pp-p1" data-monthly="KES 15K" data-annual="KES 144K">KES 15K</div>
+          <div class="ppp">/month</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>Patient Management</li>
+          <li>Appointments &amp; Scheduling</li>
+          <li>Basic Billing &amp; Invoicing</li>
+          <li>EMR (500 patients/mo)</li>
+          <li>Up to 3 Users</li>
+          <li>Email Support</li>
+        </ul>
         <button class="pcta" onclick="go('demo')">Get Started</button>
       </div>
-      <div class="pc feat">
+
+      <!-- Professional -->
+      <div class="pc feat" style="display:flex;flex-direction:column;height:100%;">
         <div class="pbadge">Most Popular</div>
-        <div class="pname">Professional</div><div class="ptgt">Hospitals &amp; medical centres</div>
-        <div class="ppr"><div class="ppv pp-p2">KES 75K</div><div class="ppp">/month</div></div>
-        <ul class="pfl2"><li>Full HIMS Platform</li><li>Pharmacy Management</li><li>Laboratory System</li><li>Radiology &amp; PACS</li><li>Insurance Claims</li><li>Unlimited Users</li><li>Priority Support</li></ul>
+        <div class="pname">Professional</div>
+        <div class="ptgt">Hospitals &amp; medical centres</div>
+        <div class="ppr">
+          <div class="ppv pp-p2" data-monthly="KES 75K" data-annual="KES 720K">KES 75K</div>
+          <div class="ppp">/month</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>Full HIMS Platform</li>
+          <li>Pharmacy Management</li>
+          <li>Laboratory System</li>
+          <li>Radiology &amp; PACS</li>
+          <li>Insurance Claims</li>
+          <li>Unlimited Users</li>
+          <li>Priority Support</li>
+        </ul>
         <button class="pcta" onclick="go('demo')">Book Demo</button>
       </div>
-      <div class="pc">
-        <div class="pname">Enterprise</div><div class="ptgt">Counties &amp; hospital groups</div>
-        <div class="ppr"><div class="ppv">Custom</div></div>
-        <ul class="pfl2"><li>Multi-facility Management</li><li>All Modules Included</li><li>Advanced Analytics &amp; BI</li><li>Custom Workflow Design</li><li>Dedicated Success Team</li><li>Government SLA</li><li>On-premise Option</li></ul>
+
+      <!-- Enterprise -->
+      <div class="pc" style="display:flex;flex-direction:column;height:100%;">
+        <div class="pname">Enterprise</div>
+        <div class="ptgt">Counties &amp; hospital groups</div>
+        <div class="ppr">
+          <div class="ppv" data-monthly="Custom" data-annual="Custom">Custom</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>Multi-facility Management</li>
+          <li>All Modules Included</li>
+          <li>Advanced Analytics &amp; BI</li>
+          <li>Custom Workflow Design</li>
+          <li>Dedicated Success Team</li>
+          <li>Government SLA</li>
+          <li>On-premise Option</li>
+        </ul>
         <button class="pcta" onclick="go('contact')">Contact Sales</button>
       </div>
-      <div class="pc">
-        <div class="pname">Mental Health</div><div class="ptgt">Specialised MH facilities</div>
-        <div class="ppr"><div class="ppv pp-p4">KES 35K</div><div class="ppp">/month</div></div>
-        <ul class="pfl2"><li>Psychiatric EMR</li><li>PHQ-9, GAD-7, C-SSRS</li><li>Teletherapy Platform</li><li>Risk Monitoring</li><li>Multi-provider Scheduling</li><li>Progress Notes</li></ul>
+
+      <!-- Mental Health -->
+      <div class="pc" style="display:flex;flex-direction:column;height:100%;">
+        <div class="pname">Mental Health</div>
+        <div class="ptgt">Specialised MH facilities</div>
+        <div class="ppr">
+          <div class="ppv pp-p4" data-monthly="KES 35K" data-annual="KES 336K">KES 35K</div>
+          <div class="ppp">/month</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>Psychiatric EMR</li>
+          <li>PHQ-9, GAD-7, C-SSRS</li>
+          <li>Teletherapy Platform</li>
+          <li>Risk Monitoring</li>
+          <li>Multi-provider Scheduling</li>
+          <li>Progress Notes</li>
+        </ul>
         <button class="pcta" onclick="go('demo')">Book Demo</button>
       </div>
+
       <!-- Ambulance -->
-<div class="pc">
-  <div class="pname">Ambulance</div>
-  <div class="ptgt">Emergency response & fleet management</div>
-  <div class="ppr">
-    <div class="ppv pp-p5">KES 45K</div>
-    <div class="ppp">/month</div>
-  </div>
-  <ul class="pfl2">
-    <li>Emergency Dispatch and call center</li>
-    <li>GPS Fleet Tracking</li>
-    <li>Mobile Rescue request</li>
-    <li>Patient app</li>
-    <li>EMT and Paramedical operations</li>
-    <li>Hospital integration and bed availability</li>
-    <li>Billing and insurance claims</li>
-    <li>EOT and incident command</li>
-    <li> AI Analytics, sureveillance and interoperability</li>
-    <li>Fleet Maintenance and asset management</li>
-  </ul>
-  <button class="pcta" onclick="go('demo')">Book Demo</button>
-</div>
+      <div class="pc" style="display:flex;flex-direction:column;height:100%;">
+        <div class="pname">Ambulance</div>
+        <div class="ptgt">Emergency response & fleet management</div>
+        <div class="ppr">
+          <div class="ppv pp-p5" data-monthly="KES 45K" data-annual="KES 432K">KES 45K</div>
+          <div class="ppp">/month</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>Emergency Dispatch and call center</li>
+          <li>GPS Fleet Tracking</li>
+          <li>Mobile Rescue request</li>
+          <li>Patient app</li>
+          <li>EMT and Paramedical operations</li>
+          <li>Hospital integration and bed availability</li>
+          <li>Billing and insurance claims</li>
+          <li>EOT and incident command</li>
+          <li>AI Analytics, surveillance and interoperability</li>
+          <li>Fleet Maintenance and asset management</li>
+        </ul>
+        <button class="pcta" onclick="go('demo')">Book Demo</button>
+      </div>
 
-<!-- Laboratory -->
-<div class="pc">
-  <div class="pname">Laboratory</div>
-  <div class="ptgt">Diagnostic centres & hospital labs</div>
-  <div class="ppr">
-    <div class="ppv pp-p6">KES 55K</div>
-    <div class="ppp">/month</div>
-  </div>
-  <ul class="pfl2">
-    <li>Specimen dispatch and sample collection</li>
-    <li>Lab workflows and processing</li>
-    <li>Analyzer and medical equipment </li>
-    <li>Results management and reporting</li>
-    <li>Quality check and accreditation</li>
-    <li>Lab inventory and reagent management</li>
-    <li>Analytics AI and interoperability</li>
-    <li>Patient  App</li>
-  </ul>
-  <button class="pcta" onclick="go('demo')">Book Demo</button>
-</div>
+      <!-- Laboratory -->
+      <div class="pc" style="display:flex;flex-direction:column;height:100%;">
+        <div class="pname">Laboratory</div>
+        <div class="ptgt">Diagnostic centres & hospital labs</div>
+        <div class="ppr">
+          <div class="ppv pp-p6" data-monthly="KES 55K" data-annual="KES 528K">KES 55K</div>
+          <div class="ppp">/month</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>Specimen dispatch and sample collection</li>
+          <li>Lab workflows and processing</li>
+          <li>Analyzer and medical equipment</li>
+          <li>Results management and reporting</li>
+          <li>Quality check and accreditation</li>
+          <li>Lab inventory and reagent management</li>
+          <li>Analytics AI and interoperability</li>
+          <li>Patient App</li>
+        </ul>
+        <button class="pcta" onclick="go('demo')">Book Demo</button>
+      </div>
 
-<!-- Pharmacy -->
-<div class="pc">
-  <div class="pname">Pharmacy</div>
-  <div class="ptgt">Retail & hospital pharmacy management</div>
-  <div class="ppr">
-    <div class="ppv pp-p7">KES 40K</div>
-    <div class="ppp">/month</div>
-  </div>
-  <ul class="pfl2">
-    <li>E-prescription and dispensing</li>
-    <li>Pharmacy Inventory and stock management</li>
-    <li>Procurement and supplier management</li>
-    <li>Pharmacy and POS management</li>
-    <li>Multibranch management</li>
-    <li>Clinical and medical supply</li>
-    <li>Insurance claims</li>
-    <li>Analyticsand Ai analytics reporting</li>
-    <li>Patient app</li>
+      <!-- Pharmacy -->
+      <div class="pc" style="display:flex;flex-direction:column;height:100%;">
+        <div class="pname">Pharmacy</div>
+        <div class="ptgt">Retail & hospital pharmacy management</div>
+        <div class="ppr">
+          <div class="ppv pp-p7" data-monthly="KES 40K" data-annual="KES 384K">KES 40K</div>
+          <div class="ppp">/month</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>E-prescription and dispensing</li>
+          <li>Pharmacy Inventory and stock management</li>
+          <li>Procurement and supplier management</li>
+          <li>Pharmacy and POS management</li>
+          <li>Multibranch management</li>
+          <li>Clinical and medical supply</li>
+          <li>Insurance claims</li>
+          <li>Analytics and AI reporting</li>
+          <li>Patient app</li>
+        </ul>
+        <button class="pcta" onclick="go('demo')">Book Demo</button>
+      </div>
 
-  </ul>
-  <button class="pcta" onclick="go('demo')">Book Demo</button>
-</div>
-
-<!-- Maternity & Delivery -->
-<div class="pc">
-  <div class="pname">Maternity & Delivery</div>
-  <div class="ptgt">Maternal care & obstetric facilities</div>
-  <div class="ppr">
-    <div class="ppv pp-p8">KES 65K</div>
-    <div class="ppp">/month</div>
-  </div>
-  <ul class="pfl2">
-    <li>Antenatal Care Management</li>
-    <li>Labour & Delivery Tracking</li>
-    <li>Pregnancy and fetal assessment</li>
-    <li>Newnatal care management</li>
-    <li>Postnatal Care management</li>
-    <li>Maternal emergency and ambulance integration</li>
-    <li>Public Health, Ai and interoperability</li>
-    <li>Maternal Telemedicine</li>
-    <li>Patient app</li>
-  </ul>
-  <button class="pcta" onclick="go('demo')">Book Demo</button>
-</div>
+      <!-- Maternity & Delivery -->
+      <div class="pc" style="display:flex;flex-direction:column;height:100%;">
+        <div class="pname">Maternity & Delivery</div>
+        <div class="ptgt">Maternal care & obstetric facilities</div>
+        <div class="ppr">
+          <div class="ppv pp-p8" data-monthly="KES 65K" data-annual="KES 624K">KES 65K</div>
+          <div class="ppp">/month</div>
+        </div>
+        <ul class="pfl2" style="flex:1;">
+          <li>Antenatal Care Management</li>
+          <li>Labour & Delivery Tracking</li>
+          <li>Pregnancy and fetal assessment</li>
+          <li>Newborn care management</li>
+          <li>Postnatal Care management</li>
+          <li>Maternal emergency and ambulance integration</li>
+          <li>Public Health, AI and interoperability</li>
+          <li>Maternal Telemedicine</li>
+          <li>Patient app</li>
+        </ul>
+        <button class="pcta" onclick="go('demo')">Book Demo</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1986,7 +2001,7 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
           <div class="fg"><label class="fl3">Contact Name *</label><input class="fi2" type="text" placeholder="Your full name"></div>
           <div class="fg"><label class="fl3">Firm / Organisation</label><input class="fi2" type="text" placeholder="Investment firm name"></div>
-          <div class="fg"><label class="fl3">Email *</label><input class="fi2" type="email" placeholder="investor@firm.com"></div>
+          <div class="fg"><label class="fl3">Email *</label><input class="fi2" type="email" placeholder="investor@firm.life"></div>
           <div class="fg"><label class="fl3">Phone</label><input class="fi2" type="tel" placeholder="+1 000 000 0000"></div>
           <div class="fg"><label class="fl3">Investor Type</label>
             <select class="fs2"><option>Venture Capital</option><option>Angel Investor</option><option>Private Equity</option><option>Family Office</option><option>Development Finance Institution</option><option>Strategic Corporate</option></select>
@@ -2076,11 +2091,11 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
       <div>
         <h3 style="font-size:23px;font-weight:700;color:#fff;margin-bottom:22px;">Get in Touch</h3>
         <div class="cch">
-          <div class="cchi"><div class="chi">📧</div><div><div class="cht">General Inquiries</div><div class="chv">info@resq247.com</div></div></div><div class="cchi"><div class="chi">🎧</div><div><div class="cht">Customer Support</div><div class="chv">support@resq247.com</div></div></div>
-          <div class="cchi"><div class="chi">💼</div><div><div class="cht">Enterprise Sales</div><div class="chv">sales@resq247.com</div></div></div>
-          <div class="cchi"><div class="chi">🏛️</div><div><div class="cht">Government Relations</div><div class="chv">government@resq247.com</div></div></div>
-          <div class="cchi"><div class="chi">📈</div><div><div class="cht">Investor Relations</div><div class="chv">investors@resq247.com</div></div></div>
-          <div class="cchi"><div class="chi">🤝</div><div><div class="cht">Partnerships</div><div class="chv">partners@resq247.com</div></div></div>
+          <div class="cchi"><div class="chi">📧</div><div><div class="cht">General Inquiries</div><div class="chv">info@resq247.life</div></div></div><div class="cchi"><div class="chi">🎧</div><div><div class="cht">Customer Support</div><div class="chv">support@resq247.life</div></div></div>
+          <div class="cchi"><div class="chi">💼</div><div><div class="cht">Enterprise Sales</div><div class="chv">sales@resq247.life</div></div></div>
+          <div class="cchi"><div class="chi">🏛️</div><div><div class="cht">Government Relations</div><div class="chv">government@resq247.life</div></div></div>
+          <div class="cchi"><div class="chi">📈</div><div><div class="cht">Investor Relations</div><div class="chv">investors@resq247.life</div></div></div>
+          <div class="cchi"><div class="chi">🤝</div><div><div class="cht">Partnerships</div><div class="chv">partners@resq247.life</div></div></div>
           <div class="cchi"><div class="chi">📞</div><div><div class="cht">Phone &amp; WhatsApp</div><div class="chv">+254 700 247 247</div></div></div>
           <div class="cchi"><div class="chi">📍</div><div><div class="cht">Head Office</div><div class="chv">Nairobi, Kenya</div></div></div>
         </div>
@@ -2224,7 +2239,6 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
 </div>
 </div>
 
-<!-- ══════════════ SCRIPTS ══════════════ -->
 
 
 <!-- ══ UPGRADED NAV WITH MEGA MENU ══ -->
@@ -3265,25 +3279,6 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
   </div>
 </div>
 
-<!-- ══════════ SEO META INJECTION + GA4 ══════════ -->
-
-
-<!-- ══════════ SEO: Open Graph + Schema + Canonical ══════════ -->
-
-
-<!-- ══════════ PRICING ADD-ONS TABLE (inject into pricing page) ══════════ -->
-
-
-<!-- ══════════ CONTACT PAGE: MAP EMBED ══════════ -->
-
-
-<!-- ══════════ INVESTORS: EXPANSION + REVENUE MODEL ══════════ -->
-
-
-
-
-
-
 <!-- ══════════ PAGE: DEVELOPER DOCS ══════════ -->
 <div class="pg" id="pg-resources-docs">
 <div style="padding:120px 32px 72px;background:linear-gradient(145deg,#0F2260,#1C3A8A);text-align:center;">
@@ -3334,32 +3329,6 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
     </div>
   </div>
 </section>
-<section class="sec">
-  <div class="sec-in">
-    <div class="sec-hd"><div class="lbl">Tech Stack</div><h2 class="ttl">Platform Architecture</h2></div>
-    <div style="overflow-x:auto;border-radius:var(--r-lg);overflow:hidden;border:1px solid rgba(184,151,58,.15);">
-      <table class="ct2">
-        <thead><tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr></thead>
-        <tbody>
-          <tr><td class="ch">Frontend</td><td>Next.js 14 (App Router)</td><td>SSG + ISR + SSR rendering</td></tr>
-          <tr><td class="ch">UI Framework</td><td>React 18 + Tailwind CSS</td><td>Component library + styling</td></tr>
-          <tr><td class="ch">Backend API</td><td>NestJS (REST + GraphQL)</td><td>Authentication, lead capture, pricing engine</td></tr>
-          <tr><td class="ch">Database</td><td>PostgreSQL 15+</td><td>Primary data store (pgcrypto, pg_trgm)</td></tr>
-          <tr><td class="ch">Cache</td><td>Redis</td><td>Sessions, rate limiting, short-lived data</td></tr>
-          <tr><td class="ch">CMS</td><td>Strapi (self-hosted)</td><td>Content management, blog, products</td></tr>
-          <tr><td class="ch">Search</td><td>Elasticsearch 8+ / Algolia</td><td>Global site search, Cmd+K palette</td></tr>
-          <tr><td class="ch">Auth</td><td>JWT + OAuth 2.0 + SAML 2.0</td><td>SSO, MFA, enterprise federation</td></tr>
-          <tr><td class="ch">Analytics</td><td>GA4 + Mixpanel</td><td>Conversion tracking, funnel analytics</td></tr>
-          <tr><td class="ch">Email</td><td>SendGrid</td><td>Transactional + marketing email</td></tr>
-          <tr><td class="ch">SMS/WhatsApp</td><td>Twilio / Africa's Talking</td><td>OTP, notifications, demo confirmation</td></tr>
-          <tr><td class="ch">CRM</td><td>HubSpot / Zoho / Salesforce</td><td>Lead management, sales pipeline</td></tr>
-          <tr><td class="ch">Payments</td><td>M-Pesa + Stripe</td><td>Online subscriptions and payments</td></tr>
-          <tr><td class="ch">Infrastructure</td><td>Vercel (Frontend) + AWS / GCP</td><td>Hosting, CDN, auto-scaling</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
 <section class="sec sec-dk">
   <div class="sec-in">
     <div style="max-width:700px;margin:0 auto;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-xl);padding:44px;text-align:center;">
@@ -3396,6 +3365,35 @@ textarea.fi2{height:115px;padding:14px;resize:vertical}
 // ═══════════════════════════════════════════════════════════════
 // ResQ247 — Unified Application Script v2 (Complete)
 // ═══════════════════════════════════════════════════════════════
+
+
+
+
+
+// Price Toggle Function - Works on ALL cards
+function togPrice(checkbox) {
+  const isAnnual = checkbox.checked;
+  const priceElements = document.querySelectorAll('.ppv');
+  const periodElements = document.querySelectorAll('.ppp');
+
+  priceElements.forEach(el => {
+    if (isAnnual) {
+      el.textContent = el.getAttribute('data-annual');
+    } else {
+      el.textContent = el.getAttribute('data-monthly');
+    }
+  });
+
+  periodElements.forEach(el => {
+    el.textContent = isAnnual ? '/year' : '/month';
+  });
+}
+
+// Initialize on page load (in case default should be monthly)
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById('pt2');
+  if (toggle) togPrice(toggle);
+});
 
 // ── PAGE ALIASES ──
 var PAGE_ALIASES = {
@@ -3455,14 +3453,22 @@ function pTab(idx,el) {
   var panels=document.querySelectorAll('.ptp'); if(panels[idx]) panels[idx].classList.add('on');
 }
 
-// ── PRICING TOGGLES ──
-var PRICES_MONTHLY={p1:'KES 15K',p2:'KES 75K',p3:'Custom',p4:'KES 35K'};
-var PRICES_ANNUAL ={p1:'KES 12K',p2:'KES 60K',p3:'Custom',p4:'KES 28K'};
-function togPrice(toggleId,prefix) {
-  var el=document.getElementById(toggleId); if(!el) return;
-  var annual=el.checked, prices=annual?PRICES_ANNUAL:PRICES_MONTHLY;
-  ['p1','p2','p4'].forEach(function(k){
-    var target=document.querySelector('.'+prefix+'-'+k); if(target) target.textContent=prices[k];
+// Price Toggle Function - Works on ALL cards
+function togPrice(checkbox) {
+  const isAnnual = checkbox.checked;
+  const priceElements = document.querySelectorAll('.ppv');
+  const periodElements = document.querySelectorAll('.ppp');
+
+  priceElements.forEach(el => {
+    if (isAnnual) {
+      el.textContent = el.getAttribute('data-annual');
+    } else {
+      el.textContent = el.getAttribute('data-monthly');
+    }
+  });
+
+  periodElements.forEach(el => {
+    el.textContent = isAnnual ? '/year' : '/month';
   });
 }
 
@@ -3713,12 +3719,12 @@ document.addEventListener('DOMContentLoaded',function(){
   if(nav) nav.innerHTML=[
     '<div class="nav-in">',
       '<div class="logo" onclick="go(\'home\')">' +
-          '<div class="logo-ring">' +
-              '<img src="logo.png" alt="ResQ247" class="logo-img">' +
-          '</div>' +
-          '<div class="logo-text">ResQ<span>247</span></div>' +
-      '</div>',
-      '<div class="nav-links" id="navLinks">',
+    '<div class="logo-ring">' +
+        '<img src="logo.png" alt="ResQ247" class="logo-img">' +
+    '</div>' +
+    '<div class="logo-text">ResQ<span>247</span></div>' +
+'</div>',
+'<div class="nav-links" id="navLinks">',
 
         // Solutions mega
         '<div class="mega-wrap nl" style="padding:0;"><span class="nl" style="padding:8px 13px;">Solutions &#9660;</span>',
